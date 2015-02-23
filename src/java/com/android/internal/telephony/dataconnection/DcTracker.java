@@ -145,8 +145,6 @@ public final class DcTracker extends DcTrackerBase {
 
     private static final int PROVISIONING_SPINNER_TIMEOUT_MILLIS = 120 * 1000;
 
-    static final Uri PREFERAPN_NO_UPDATE_URI =
-                        Uri.parse("content://telephony/carriers/preferapn_no_update");
     static final Uri PREFERAPN_NO_UPDATE_URI_USING_SUBID =
                         Uri.parse("content://telephony/carriers/preferapn_no_update/subId/");
     static final String APN_ID = "apn_id";
@@ -189,7 +187,6 @@ public final class DcTracker extends DcTrackerBase {
 
     /* IWLAN and WWAN co-exist flag */
     private boolean mWwanIwlanCoexistFlag = false;
-    private long mSubId;
 
     private CdmaApnProfileTracker mOmhApt;
 
@@ -288,9 +285,6 @@ public final class DcTracker extends DcTrackerBase {
             mProvisioningSpinner.dismiss();
             mProvisioningSpinner = null;
         }
-
-        ConnectivityManager cm = (ConnectivityManager)mPhone.getContext().getSystemService(
-                Context.CONNECTIVITY_SERVICE);
 
         cleanUpAllConnections(true, null);
 
@@ -2824,7 +2818,7 @@ public final class DcTracker extends DcTrackerBase {
             return;
         }
 
-        String subId = Long.toString(mPhone.getSubId());
+        String subId = Integer.toString(mPhone.getSubId());
         Uri uri = Uri.withAppendedPath(PREFERAPN_NO_UPDATE_URI_USING_SUBID, subId);
         log("setPreferredApn: delete");
         ContentResolver resolver = mPhone.getContext().getContentResolver();
@@ -2844,7 +2838,7 @@ public final class DcTracker extends DcTrackerBase {
             return null;
         }
 
-        String subId = Long.toString(mPhone.getSubId());
+        String subId = Integer.toString(mPhone.getSubId());
         Uri uri = Uri.withAppendedPath(PREFERAPN_NO_UPDATE_URI_USING_SUBID, subId);
         Cursor cursor = mPhone.getContext().getContentResolver().query(
                 uri, new String[] { "_id", "name", "apn" },
