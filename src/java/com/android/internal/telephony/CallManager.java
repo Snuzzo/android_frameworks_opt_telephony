@@ -86,7 +86,8 @@ public final class CallManager {
     private static final int EVENT_ONHOLD_TONE = 120;
     // FIXME Taken from klp-sprout-dev but setAudioMode was removed in L.
     //private static final int EVENT_RADIO_OFF_OR_NOT_AVAILABLE = 121;
-    private static final int EVENT_SUPP_SERVICE_NOTIFY = 122;
+    private static final int EVENT_TTY_MODE_RECEIVED = 122;
+    private static final int EVENT_SUPP_SERVICE_NOTIFY = 123;
 
     // Singleton instance
     private static final CallManager INSTANCE = new CallManager();
